@@ -17,25 +17,46 @@ class AuthNotifier extends StateNotifier<AuthState> {
     checkAuthStatus();
   }
 
+  Future<void> login(
+    String password,
+    String name,
+  ) async {
+    try {
+      print("ACA");
+      final authEntity = await authRepository.login(password, name);
+      _setLoggedUser(authEntity);
+    } catch (e) {
+      _setError();
+    }
+  }
+
   Future<void> checkAuthStatus() async {
     state = state.copyWith(loading: true);
     try {
       final authEntity = await authRepository.checkAuthStatus();
-      state = state.copyWith(
-          authEntity: authEntity,
-          authStatus: AuthStatus.authenticated,
-          isError: false,
-          loading: false,
-          message: "OK");
+      _setLoggedUser(authEntity);
     } catch (e) {
       print("Error => checkAuthStatus");
-      state = state.copyWith(
-          authEntity: null,
-          authStatus: AuthStatus.notAuthenticated,
-          isError: true,
-          loading: false,
-          message: "Error");
+      _setError();
     }
+  }
+
+  void _setLoggedUser(AuthEntity authEntity) async {
+    state = state.copyWith(
+        authEntity: authEntity,
+        message: "ok",
+        isError: false,
+        loading: false,
+        authStatus: AuthStatus.authenticated);
+  }
+
+  void _setError() async {
+    state = state.copyWith(
+        authEntity: null,
+        authStatus: AuthStatus.notAuthenticated,
+        isError: true,
+        loading: false,
+        message: "Error");
   }
 }
 

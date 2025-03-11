@@ -8,9 +8,10 @@ class AuthDatasourceImpl extends AuthDatasource {
   }
 
   @override
-  Future<AuthEntity> login(String password, String name) {
-    // TODO: implement login
-    throw UnimplementedError();
+  Future<AuthEntity> login(String password, String name) async {
+    //TODOOoooo
+    final AuthEntity auth = AuthEntity(name: "sd");
+    return auth;
   }
 
   @override
