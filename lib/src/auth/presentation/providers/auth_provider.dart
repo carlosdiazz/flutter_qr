@@ -22,8 +22,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
     String name,
   ) async {
     try {
-      print("ACA");
       final authEntity = await authRepository.login(password, name);
+      _setLoggedUser(authEntity);
+    } catch (e) {
+      _setError();
+    }
+  }
+
+  Future<void> loginBiometric() async {
+    try {
+      final authEntity = await authRepository.loginBiometric();
       _setLoggedUser(authEntity);
     } catch (e) {
       _setError();

@@ -1,5 +1,6 @@
 enum NamesRouterEnum {
-  loginScreen,
+  loginFormScreen,
+  loginBiometricScreen,
   registerScreen,
   checkAuthScreen,
   homeScreen,
@@ -7,7 +8,9 @@ enum NamesRouterEnum {
 }
 
 class NamesRouter {
-  static String loginScreen = NamesRouterEnum.loginScreen.name;
+  static String loginFormScreen = NamesRouterEnum.loginFormScreen.name;
+  static String loginBiometricScreen =
+      NamesRouterEnum.loginBiometricScreen.name;
   static String registerScreen = NamesRouterEnum.registerScreen.name;
   static String checkAuthScreen = NamesRouterEnum.checkAuthScreen.name;
   static String homeScreen = NamesRouterEnum.homeScreen.name;

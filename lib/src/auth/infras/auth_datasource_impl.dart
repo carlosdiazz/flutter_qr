@@ -19,4 +19,10 @@ class AuthDatasourceImpl extends AuthDatasource {
     // TODO: implement register
     throw UnimplementedError();
   }
+
+  @override
+  Future<AuthEntity> loginBiometric() {
+    // TODO: implement loginBiometric
+    throw UnimplementedError();
+  }
 }

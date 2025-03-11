@@ -19,4 +19,9 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<AuthEntity> register(String password, String name) async {
     return await datasource.register(password, name);
   }
+
+  @override
+  Future<AuthEntity> loginBiometric() async {
+    return await datasource.loginBiometric();
+  }
 }

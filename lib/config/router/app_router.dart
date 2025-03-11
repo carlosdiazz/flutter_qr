@@ -26,9 +26,14 @@ final appRputerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const ItemsScreen(),
       ),
       GoRoute(
-        path: "/${NamesRouter.loginScreen}",
-        name: NamesRouter.loginScreen,
-        builder: (context, state) => const LoginScreen(),
+        path: "/${NamesRouter.loginFormScreen}",
+        name: NamesRouter.loginFormScreen,
+        builder: (context, state) => const LoginFormScreen(),
+      ),
+      GoRoute(
+        path: "/${NamesRouter.loginBiometricScreen}",
+        name: NamesRouter.loginBiometricScreen,
+        builder: (context, state) => const LoginBiometricScreen(),
       ),
       GoRoute(
         path: "/${NamesRouter.registerScreen}",
@@ -46,7 +51,15 @@ final appRputerProvider = Provider<GoRouter>((ref) {
       }
 
       if (authStatus == AuthStatus.notAuthenticated) {
-        return "/${NamesRouter.loginScreen}";
+        if (isGoingTo == "/${NamesRouter.loginFormScreen}") {
+          return "/${NamesRouter.loginFormScreen}";
+        }
+
+        if (isGoingTo == "/${NamesRouter.loginBiometricScreen}") {
+          return "/${NamesRouter.loginBiometricScreen}";
+        }
+
+        return "/${NamesRouter.loginFormScreen}";
       }
       if (authStatus == AuthStatus.authenticated) {
         return "/${NamesRouter.homeScreen}";
