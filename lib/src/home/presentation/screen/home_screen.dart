@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr/shared/shared.dart';
+import 'package:qr/src/src.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,9 +10,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Home")),
       drawer: const SideMenu(),
-      body: const Center(
-        child: Text("HomeScreen"),
-      ),
+      body: const ItemsView(),
     );
   }
 }

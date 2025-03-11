@@ -4,8 +4,19 @@ import 'package:go_router/go_router.dart';
 import 'package:qr/config/config.dart';
 import 'package:qr/src/auth/auth.dart';
 
-class LoginBiometricScreen extends StatelessWidget {
+class LoginBiometricScreen extends ConsumerStatefulWidget {
   const LoginBiometricScreen({super.key});
+
+  @override
+  ConsumerState<LoginBiometricScreen> createState() =>
+      _LoginBiometricScreenState();
+}
+
+class _LoginBiometricScreenState extends ConsumerState<LoginBiometricScreen> {
+  @override
+  void initState() {
+    ref.read(authProvider.notifier).loginBiometric();
+  }
 
   @override
   Widget build(BuildContext context) {
