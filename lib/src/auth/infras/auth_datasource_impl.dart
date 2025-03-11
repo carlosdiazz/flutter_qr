@@ -11,14 +11,17 @@ class AuthDatasourceImpl extends AuthDatasource {
   }
 
   @override
-  Future<AuthEntity> login(String password, String name) async {
+  Future<AuthEntity> login(String password) async {
     //TODOOoooo
-    final AuthEntity auth = AuthEntity(name: "sd");
-    return auth;
+    if (password == "12345678") {
+      const AuthEntity auth = AuthEntity(name: "NO_NAME");
+      return auth;
+    }
+    throw UnimplementedError();
   }
 
   @override
-  Future<AuthEntity> register(String password, String name) {
+  Future<AuthEntity> register(String password) {
     // TODO: implement register
     throw UnimplementedError();
   }

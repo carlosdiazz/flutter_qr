@@ -11,13 +11,17 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<AuthEntity> login(String password, String name) async {
-    return await datasource.login(password, name);
+  Future<AuthEntity> login(String password) async {
+    return await datasource.login(
+      password,
+    );
   }
 
   @override
-  Future<AuthEntity> register(String password, String name) async {
-    return await datasource.register(password, name);
+  Future<AuthEntity> register(
+    String password,
+  ) async {
+    return await datasource.register(password);
   }
 
   @override

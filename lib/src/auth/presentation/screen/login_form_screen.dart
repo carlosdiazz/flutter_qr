@@ -43,13 +43,6 @@ class _LoginForm extends ConsumerWidget {
             style: TextStyle(color: colors.primary, fontSize: 30),
           ),
           const SizedBox(height: 40),
-          CustomTextFormField(
-            label: 'Name',
-            keyboardType: TextInputType.name,
-            onChanged: form.onNameChange,
-            errorMessage:
-                loginForm.isFormPosted ? loginForm.name.errorMessage : null,
-          ),
           const SizedBox(height: 30),
           CustomTextFormField(
             label: 'Contraseña',

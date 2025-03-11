@@ -19,10 +19,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<void> login(
     String password,
-    String name,
   ) async {
     try {
-      final authEntity = await authRepository.login(password, name);
+      final authEntity = await authRepository.login(
+        password,
+      );
       _setLoggedUser(authEntity);
     } catch (e) {
       _setError();
@@ -57,7 +58,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
       final authEntity = await authRepository.checkAuthStatus();
       _setLoggedUser(authEntity);
     } catch (e) {
-      print("Error => checkAuthStatus");
       _setError();
     }
   }

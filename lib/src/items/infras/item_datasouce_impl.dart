@@ -29,10 +29,29 @@ class ItemDatasouceImpl extends ItemDatasource {
   }
 
   @override
-  Future<void> deleteAllItem() async {}
+  Future<void> deleteAllItem() async {
+    final isar = await db;
+    // Elimina todos los elementos de la colección
+    await isar.writeTxn(() async {
+      await isar.itemEntitys.clear();
+    });
+    log("🚀 => Todos los elementos han sido eliminados");
+  }
 
   @override
-  Future<void> deleteOneItem(String uuid) async {}
+  Future<void> deleteOneItem(String uuid) async {
+    final isar = await db;
+    await isar.writeTxn(() async {
+      final item =
+          await isar.itemEntitys.filter().uuidEqualTo(uuid).findFirst();
+      if (item != null && item.isarId != null) {
+        await isar.itemEntitys.delete(item.isarId!);
+        log("🚀 => Se eliminó el item con UUID: $uuid");
+      } else {
+        log("❌ => No se encontró el item con UUID: $uuid");
+      }
+    });
+  }
 
   @override
   Future<List<ItemEntity>> getAllItem() async {
