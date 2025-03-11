@@ -11,6 +11,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(title: const Text("Home")),
       drawer: const SideMenu(),
       body: const ItemsView(),
+      floatingActionButton: const ScanButton(),
     );
   }
 }
