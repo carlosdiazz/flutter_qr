@@ -5,6 +5,7 @@ export 'domain/auth_entity.dart';
 export './infras/auth_datasource_impl.dart';
 export './infras/auth_repository_impl.dart';
 
+export './presentation/providers/auth_repository_provider.dart';
 export './presentation/providers/auth_provider.dart';
 
 export 'presentation/screen/check_auth_screen.dart';
