@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const colorList = <Color>[
+const colorsList = <Color>[
   // Tonalidades de Azul
   Colors.blue,
   Colors.blueAccent,

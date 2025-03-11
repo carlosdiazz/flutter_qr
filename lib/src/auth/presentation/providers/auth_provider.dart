@@ -29,6 +29,19 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
+  Future<void> logout() async {
+    try {
+      state = state.copyWith(
+          authEntity: null,
+          authStatus: AuthStatus.notAuthenticated,
+          isError: false,
+          loading: false,
+          message: "Logout");
+    } catch (e) {
+      _setError();
+    }
+  }
+
   Future<void> loginBiometric() async {
     try {
       final authEntity = await authRepository.loginBiometric();

@@ -29,7 +29,7 @@ class _LoginForm extends ConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.all(30),
-      child: Column(
+      child: ListView(
         children: [
           const SizedBox(
             height: 150,
@@ -74,7 +74,7 @@ class _LoginForm extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Deseas ingresar con Datos Biometricos'),
+              const Text('Ingresar con Datos Biometricos'),
               TextButton(
                   onPressed: () {
                     context.pushNamed(NamesRouter.loginBiometricScreen);
