@@ -2,7 +2,10 @@ import 'package:qr/src/src.dart';
 
 class ItemDatasouceImpl extends ItemDatasource {
   @override
-  Future<void> createItem(ItemEntity item) async {}
+  Future<void> createItem(ItemEntity item) async {
+    print("IMPORTTtttttttttt!!!!!!!!!!!!!!!");
+    print(item);
+  }
 
   @override
   Future<void> deleteAllItem() async {}
@@ -12,13 +15,7 @@ class ItemDatasouceImpl extends ItemDatasource {
 
   @override
   Future<List<ItemEntity>> getAllItem() async {
-    final List<ItemEntity> items = [
-      const ItemEntity(text: "1", uuid: "1"),
-      const ItemEntity(text: "1", uuid: "1"),
-      const ItemEntity(text: "1", uuid: "1"),
-      const ItemEntity(text: "1", uuid: "1"),
-      const ItemEntity(text: "1", uuid: "1")
-    ];
+    final List<ItemEntity> items = [];
     return items;
   }
 }

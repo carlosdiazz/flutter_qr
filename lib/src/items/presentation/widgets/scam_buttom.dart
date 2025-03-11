@@ -1,16 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart'; // Importa mobile_scanner
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:qr/src/items/items.dart'; // Importa mobile_scanner
 
-class ScanButton extends StatefulWidget {
+class ScanButton extends ConsumerStatefulWidget {
   const ScanButton({super.key});
 
   @override
-  State<ScanButton> createState() => _ScanButtonState();
+  ConsumerState<ScanButton> createState() => _ScanButtonState();
 }
 
-class _ScanButtonState extends State<ScanButton> with WidgetsBindingObserver {
+class _ScanButtonState extends ConsumerState<ScanButton>
+    with WidgetsBindingObserver {
   // Controlador para la cámara
   final MobileScannerController controller = MobileScannerController();
 
@@ -75,6 +78,7 @@ class _ScanButtonState extends State<ScanButton> with WidgetsBindingObserver {
       final String qrData = barcodes.first.rawValue ?? '';
       if (qrData.isNotEmpty) {
         print("Código QR escaneado: $qrData");
+        ref.read(itemsProvider.notifier).createItem(qrData);
         Navigator.of(context).pop(); // Cerrar la pantalla de escaneo
       }
     }
