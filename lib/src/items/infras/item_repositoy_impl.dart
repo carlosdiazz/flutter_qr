@@ -21,7 +21,7 @@ class ItemRepositoyImpl extends ItemRepository {
   }
 
   @override
-  Future<void> createItem(ItemEntity item) async {
-    return await datasource.createItem(item);
+  Future<void> createItem(ItemEntity entity) async {
+    return await datasource.createItem(entity);
   }
 }
