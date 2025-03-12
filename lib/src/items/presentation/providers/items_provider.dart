@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:qr/shared/shared.dart';
 import 'package:qr/src/src.dart';
 import 'package:uuid/uuid.dart';
 
@@ -53,14 +54,17 @@ class ItemsNotifier extends StateNotifier<ItemsState> {
     }
   }
 
-  Future<void> deleteItem(String uuid) async {
+  Future<ErrorMessageCustom> deleteItem(String uuid) async {
     _setLoading();
     try {
       await itemRepository.deleteOneItem(uuid);
       loadItems();
+      return ErrorMessageCustom(isError: false, messageError: "Ok!");
     } catch (e) {
       print(e);
       _setError();
+      return ErrorMessageCustom(
+          isError: true, messageError: "Error eliminando");
     }
   }
 

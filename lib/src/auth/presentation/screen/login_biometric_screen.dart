@@ -15,6 +15,7 @@ class LoginBiometricScreen extends ConsumerStatefulWidget {
 class _LoginBiometricScreenState extends ConsumerState<LoginBiometricScreen> {
   @override
   void initState() {
+    super.initState();
     ref.read(authProvider.notifier).loginBiometric();
   }
 

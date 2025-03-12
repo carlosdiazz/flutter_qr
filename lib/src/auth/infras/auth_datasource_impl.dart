@@ -12,12 +12,12 @@ class AuthDatasourceImpl extends AuthDatasource {
 
   @override
   Future<AuthEntity> login(String password) async {
-    //TODOOoooo
-    if (password == "12345678") {
+    //TODO aun esta estatico
+    if (password == "test1234") {
       const AuthEntity auth = AuthEntity(name: "NO_NAME");
       return auth;
     }
-    throw UnimplementedError();
+    throw Exception("Clave incorrecta");
   }
 
   @override

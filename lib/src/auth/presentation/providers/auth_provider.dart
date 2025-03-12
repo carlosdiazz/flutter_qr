@@ -27,6 +27,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       _setLoggedUser(authEntity);
     } catch (e) {
       _setError();
+      throw Exception(e);
     }
   }
 

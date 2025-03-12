@@ -17,16 +17,40 @@ class ItemsView extends ConsumerWidget {
                 itemCount: itemsState.items.length,
                 itemBuilder: (context, index) {
                   final item = itemsState.items[index];
-                  return ListTile(
-                    title: Text(item.text),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        ref.read(itemsProvider.notifier).deleteItem(item.uuid);
-                      },
-                    ),
-                  );
+                  return _ListTile(item: item);
                 },
               );
+  }
+}
+
+class _ListTile extends ConsumerWidget {
+  const _ListTile({
+    required this.item,
+  });
+
+  final ItemEntity item;
+
+  @override
+  Widget build(BuildContext context, ref) {
+    final itemsProviderNotifier = ref.read(itemsProvider.notifier);
+    return ListTile(
+      title: Text(item.text),
+      trailing: IconButton(
+        icon: const Icon(Icons.delete),
+        onPressed: () {
+          _borrar(context, itemsProviderNotifier, item.uuid);
+        },
+      ),
+    );
+  }
+
+  void _borrar(BuildContext context, ItemsNotifier itemsProviderNotifier,
+      String uuid) async {
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final errorMessage = await itemsProviderNotifier.deleteItem(uuid);
+
+    scaffoldMessenger.showSnackBar(
+      SnackBar(content: Text(errorMessage.messageError)),
+    );
   }
 }

@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qr/config/config.dart';
+import 'package:qr/shared/shared.dart';
 
 import '../presentation.dart';
 
-class LoginFormScreen extends StatelessWidget {
+class LoginFormScreen extends ConsumerWidget {
   const LoginFormScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return const Scaffold(
       body: _LoginForm(),
     );
@@ -57,10 +58,9 @@ class _LoginForm extends ConsumerWidget {
               width: double.infinity,
               height: 60,
               child: FilledButton(
-                onPressed: () {
-                  if (loginForm.isPosting) return;
-                  ref.read(loginFormProvider.notifier).onFormSubmitLogin();
-                },
+                onPressed: loginForm.isPosting
+                    ? null
+                    : () => _submitLogin(context, form),
                 child: const Text("Ingresar"),
               )),
           const SizedBox(height: 15),
@@ -78,5 +78,13 @@ class _LoginForm extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  void _submitLogin(BuildContext context, LoginFormNotifier form) async {
+    final errorMessage = await form.onFormSubmitLogin();
+
+    // Verifica si el widget sigue montado
+    if (!context.mounted) return;
+    showSnackBar(context, errorMessage);
   }
 }

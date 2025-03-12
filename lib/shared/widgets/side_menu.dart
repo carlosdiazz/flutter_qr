@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:qr/config/config.dart';
 import 'package:qr/src/src.dart';
 
@@ -9,26 +10,21 @@ class SideMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeState = ref.watch(themeNotifierProvider);
+    //final themeState = ref.watch(themeNotifierProvider);
+    final themeState = context.watch<ThemeBloc>().state;
     final authNotifier = ref.read(authProvider.notifier);
 
     return Drawer(
       child: Column(
         children: [
           const DrawerHeader(
-            decoration: BoxDecoration(color: Colors.blue),
-            child: Center(
-                child: Text("Menú",
-                    style: TextStyle(color: Colors.white, fontSize: 20))),
-          ),
+              decoration: BoxDecoration(color: Colors.blue), child: Center()),
 
           // Botón Home
-          ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text("Home"),
-            onTap: () {
-              context.push(NamesRouter.homeScreen);
-            },
+          const ListTile(
+            leading: Icon(Icons.home),
+            title: Text("Home"),
+            onTap: null,
           ),
 
           // Switch para cambiar el tema
@@ -38,9 +34,10 @@ class SideMenu extends ConsumerWidget {
             trailing: Switch(
               value: themeState.isDarkMode,
               onChanged: (value) {
-                ref
-                    .read(themeNotifierProvider.notifier)
-                    .changeTheme(isDarkMode: value);
+                // Cambiar el tema usando el Bloc
+                context
+                    .read<ThemeBloc>()
+                    .add(ChangeThemeEvent(isDarkMode: value));
               },
             ),
           ),
