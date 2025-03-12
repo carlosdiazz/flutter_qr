@@ -9,17 +9,21 @@ class ItemsView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final itemsState = ref.watch(itemsProvider);
 
-    return itemsState.isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : itemsState.isError
-            ? const Center(child: Text('Error loading items'))
-            : ListView.builder(
-                itemCount: itemsState.items.length,
-                itemBuilder: (context, index) {
-                  final item = itemsState.items[index];
-                  return _Item(item: item);
-                },
-              );
+    if (itemsState.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (itemsState.isError) {
+      return const Center(child: Text('Error loading items'));
+    }
+
+    return ListView.builder(
+      itemCount: itemsState.items.length,
+      itemBuilder: (context, index) {
+        final item = itemsState.items[index];
+        return _Item(item: item);
+      },
+    );
   }
 }
 
