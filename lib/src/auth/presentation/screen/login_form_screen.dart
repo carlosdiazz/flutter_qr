@@ -39,9 +39,11 @@ class _LoginForm extends ConsumerWidget {
             Icons.person,
             size: 150,
           ),
-          Text(
-            'Login',
-            style: TextStyle(color: colors.primary, fontSize: 30),
+          Center(
+            child: Text(
+              'Login',
+              style: TextStyle(color: colors.primary, fontSize: 30),
+            ),
           ),
           const SizedBox(height: 40),
           const SizedBox(height: 30),

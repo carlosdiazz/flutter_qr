@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr/shared/shared.dart';
@@ -13,15 +14,18 @@ class HomeScreen extends ConsumerWidget {
         title: const Text("Home"),
         actions: [
           // Icono de zafacón en la esquina
-          IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: () => {ref.read(itemsProvider.notifier).deleteAlltems()},
+          FadeIn(
+            child: IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () =>
+                  {ref.read(itemsProvider.notifier).deleteAlltems()},
+            ),
           ),
         ],
       ),
       drawer: const SideMenu(),
       body: const ItemsView(),
-      floatingActionButton: const ScanButton(), //TODO
+      floatingActionButton: FadeIn(child: const ScanButton()),
     );
   }
 }
