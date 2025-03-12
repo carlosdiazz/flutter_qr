@@ -17,14 +17,14 @@ class ItemsView extends ConsumerWidget {
                 itemCount: itemsState.items.length,
                 itemBuilder: (context, index) {
                   final item = itemsState.items[index];
-                  return _ListTile(item: item);
+                  return _Item(item: item);
                 },
               );
   }
 }
 
-class _ListTile extends ConsumerWidget {
-  const _ListTile({
+class _Item extends ConsumerWidget {
+  const _Item({
     required this.item,
   });
 
@@ -33,13 +33,33 @@ class _ListTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final itemsProviderNotifier = ref.read(itemsProvider.notifier);
-    return ListTile(
-      title: Text(item.text),
-      trailing: IconButton(
-        icon: const Icon(Icons.delete),
-        onPressed: () {
-          _borrar(context, itemsProviderNotifier, item.uuid);
-        },
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      elevation: 5,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                item.text,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete_forever_outlined),
+              onPressed: () {
+                _borrar(context, itemsProviderNotifier, item.uuid);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

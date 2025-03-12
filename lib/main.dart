@@ -29,9 +29,6 @@ class MyApp extends ConsumerWidget {
     //Provider Router
     final appRouter = ref.watch(appRputerProvider);
 
-    //Provider Theme
-    //final appTheme = ref.watch(themeNotifierProvider);
-
     // Usar el estado de Bloc para el tema
     final appTheme = context.watch<ThemeBloc>().state;
 
