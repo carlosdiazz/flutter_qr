@@ -30,6 +30,7 @@ dev_dependencies:
     sdk: flutter
   isar_generator: ^3.1.0+1
   flutter_launcher_icons: ^0.14.3
+  change_app_package_name: ^1.4.0
 
 flutter_launcher_icons:
   android: "launcher_icon"

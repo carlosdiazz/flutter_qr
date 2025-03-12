@@ -52,3 +52,9 @@ Se ha seguido una **arquitectura limpia** (Clean Architecture) para separar las 
 3. Ejecuta la aplicación en un emulador o dispositivo físico:
    ```bash
    flutter run
+
+### Login (Demo)
+
+En caso de que el dipositivo no cuente con Autenticación Biométrica, puede iniciar con un codigo de prueba que es **test1234**
+
+Esta clave se creo solo con el fin de prueba, para un caso ideal lo correcto seria primero registrar una clave, para luego utilizarla.

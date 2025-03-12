@@ -1,4 +1,4 @@
-package com.example.qr
+package com.diazcode.qrcode
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 
