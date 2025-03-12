@@ -10,49 +10,73 @@ class ItemDatasouceImpl extends ItemDatasource {
   ItemDatasouceImpl() {
     db = openDB();
   }
+
+  ///  Función para abrir la base de datos de forma segura
   Future<Isar> openDB() async {
-    final dir = await getApplicationDocumentsDirectory();
-    if (Isar.instanceNames.isEmpty) {
-      return await Isar.open([ItemEntitySchema], directory: dir.path);
+    try {
+      final dir = await getApplicationDocumentsDirectory();
+
+      // Si ya hay una instancia abierta, la usamos
+      if (Isar.instanceNames.isNotEmpty) {
+        log("🔄 Reutilizando instancia existente de Isar");
+        return Future.value(Isar.getInstance());
+      }
+
+      // Cerrar Isar si ya estaba abierta
+      await Isar.getInstance()?.close();
+
+      // Abrir una nueva instancia
+      log("📂 Abriendo Isar en: ${dir.path}");
+      return await Isar.open(
+        [ItemEntitySchema],
+        directory: dir.path,
+        inspector: false, //  Deshabilitar Inspector en producción
+      );
+    } catch (e) {
+      log("Error al abrir la base de datos Isar: $e");
+      rethrow;
     }
-    return Future.value(Isar.getInstance());
   }
 
+  ///  Insertar o actualizar un item
   @override
   Future<void> createItem(ItemEntity entity) async {
     final isar = await db;
     await isar.writeTxn(() async {
-      await isar.itemEntitys.put(entity); // insert & update
+      await isar.itemEntitys.put(entity);
     });
-    final existingUser = await isar.itemEntitys.get(entity.isarId!);
-    log("🚀 => ItemDatasouceImpl => Future<void>createItem => existingUser: ${existingUser?.isarId}");
+
+    final existingItem = await isar.itemEntitys.get(entity.isarId!);
+    log("Item guardado: ${existingItem?.isarId}");
   }
 
+  ///  Eliminar todos los elementos
   @override
   Future<void> deleteAllItem() async {
     final isar = await db;
-    // Elimina todos los elementos de la colección
     await isar.writeTxn(() async {
       await isar.itemEntitys.clear();
     });
-    log("🚀 => Todos los elementos han sido eliminados");
+    log(" Todos los elementos han sido eliminados");
   }
 
+  ///  Eliminar un elemento por UUID
   @override
   Future<void> deleteOneItem(String uuid) async {
     final isar = await db;
     await isar.writeTxn(() async {
       final item =
           await isar.itemEntitys.filter().uuidEqualTo(uuid).findFirst();
-      if (item != null && item.isarId != null) {
+      if (item != null) {
         await isar.itemEntitys.delete(item.isarId!);
-        log("🚀 => Se eliminó el item con UUID: $uuid");
+        log(" Eliminado item con UUID: $uuid");
       } else {
-        log("❌ => No se encontró el item con UUID: $uuid");
+        log(" No se encontró el item con UUID: $uuid");
       }
     });
   }
 
+  ///  Obtener todos los elementos
   @override
   Future<List<ItemEntity>> getAllItem() async {
     final isar = await db;

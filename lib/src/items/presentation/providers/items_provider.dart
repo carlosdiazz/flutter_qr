@@ -29,6 +29,18 @@ class ItemsNotifier extends StateNotifier<ItemsState> {
     }
   }
 
+  Future<void> deleteAlltems() async {
+    _setLoading();
+    try {
+      await itemRepository.deleteAllItem();
+      state = state.copyWith(
+          isError: false, isLoading: false, items: [], message: "ok");
+    } catch (e) {
+      print(e);
+      _setError();
+    }
+  }
+
   Future<void> createItem(String text) async {
     _setLoading();
     try {
